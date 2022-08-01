@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+          $("#submit").click(function(){
+            var username = $("#username").val();
+            var password = $("#password").val();
+            //alert(username + password);
+            if(username == ""){
+              alert('Please input Your username');
+              return;
+            }else if(password == ""){
+              alert('Please input Your password');
+              return;
+            }else{
+              var userdata = "&u_username="+username+"&u_password="+password;
+            //alert(userdata);
+            $.ajax({
+              type: 'POST',
+              url : 'http://127.0.0.1:8080/login',
+              dataType: "text",
+              data: userdata,
+              success:function(r){
+                if(r == "success"){
+                  //alert("Login success");
+                  window.location.href = "/index_logined";
+                  localStorage.setItem("username",username);
+                }else{
+                  alert("Login Fail, please check your account or password");
+                  return;
+                }
+              },error:function(xhr,status,error){
+                console.log(error.message);
+              }
+            });
+            }
+          });
+        });
+      </script> 
+<head>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/main">
+                	<span class="glyphicon glyphicon-fire"></span> 
+                	LOGO
+                </a>
+            </div>
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li >
+                        <a href="/main">Home</a>
+                    </li>
+					
+                    <li class="active">
+                        <a href="/login">My Account</a>
+                    </li>
+                    <li>
+                        <a href="/login"><span class="glyphicon glyphicon-shopping-cart"></span> My List</a>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container -->
+    </nav>
+
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+          <!-- Tabs Titles -->
+          <h2 class="active"> Sign In </h2>
+          <a href="/reg"><h2 class="inactive underlineHover">Sign Up </h2></a>
+      
+          <!-- Icon -->
+          <div class="fadeIn first">
+            <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+          </div>
+      
+          <!-- Login Form -->
+          <div>
+            <input type="text" id="username" class="fadeIn second" name="login" placeholder="username">
+            <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
+          </br><a href="/main">Back</a>
+            <input type="submit" id="submit" class="fadeIn fourth" name="login" value="Submit">
+        </div>
+          
+      
+          <!-- Remind Passowrd -->
+          <div id="formFooter">
+            <a class="underlineHover" href="#">Forgot Password?</a>
+          </div>
+      
+        </div>
+      </div>
+
+		<!-- Footer Links -->
+		<div class="footer-info">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4 footer-info-item">
+						<h3>Information</h3>
+						<ul class="list-unstyled">
+						</ul>
+					</div>
+					<div class="col-sm-4 footer-info-item">
+						<h3>My Account</h3>
+						<ul class="list-unstyled">
+							<li><a href="/login">Sign In</a></li>
+							<li><a href="/login">View Cart</a></li>
+							<li><a href="/login">My Wishlist</a></li>
+						</ul>	
+					</div>
+					<div class="col-sm-4 footer-info-item">
+						<h3><span class="glyphicon glyphicon-list-alt"></span> Newsletter</h3>
+						<p>Sign up for exclusive offers.</p>
+						<div class="input-group">
+							<input type="email" class="form-control" placeholder="Enter your email address">
+							<span class="input-group-btn">
+								<button class="btn btn-primary" type="button">
+									Subscribe!
+								</button>
+							</span>
+						</div>
+					</div>
+				</div><!-- /.row -->
+			</div><!-- /.container -->
+        </div>
+        
+        <!-- Copyright etc -->
+        <div class="small-print">
+        	<div class="container">
+        		<p><a href="#">Terms &amp; Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact</a></p>
+        		<p> &copy; 304cem assignment 2022 </p>
+        	</div>
+        </div>
+        
+	</footer>
+
+	
+    <!-- jQuery -->
+    <script src="js/jquery-1.11.3.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+	
+	<!-- IE10 viewport bug workaround -->
+	<script src="js/viewportbug.js"></script>
+	
+</body>
+
+</html>
